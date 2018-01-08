@@ -1,7 +1,8 @@
 # Create Database and Import Data through pgRouting
+User 'postgres' and database 'postgres' are created by default when installing pgRouting. But it is recommended to create another user and to create separate databases for different cities, to work in the psql environment.
 
 ## Steps to create database and import data through pgRouting is following:
-1) User 'postgres' is created by default when installing pgRouting. First, change its password to 'postgres'. To do that, open the terminal window and enter:
+1) First, change the password of user 'postgres' to 'postgres'. To do that, open the terminal window and enter:
 ```
 sudo -u postgres psql
 ```
@@ -11,8 +12,54 @@ sudo -u postgres psql
 ALTER USER postgres PASSWORD 'postgres';
 \q
 ```
-3)  Make a backup of your pg_hba.conf file. To do that, open the terminal and enter:
+
+3) Make a backup of your pg_hba.conf file. To do that, open the terminal and enter:
 ```
 cd /etc/postgresql/9.5/main
 sudo cp pg_hba.conf pg_hba.conf.bak
 ```
+
+4) Open the pg_hba.conf file on terminal:
+```
+sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+```
+
+5) Change authentication method for postgres to 'md5' and for 'all' to 'trust'. It will remove password requirement from all the users except postgres. Also, comment out the credentials related to IPv4 and IPv6, and use a common connection for them, with address 'localhost' and method 'trust'. Final file looks like:
+```
+# Database administrative login by Unix domain socket
+local   all             postgres                                md5
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+host    all             all             localhost               trust
+# IPv4 local connections:
+#host    all             all             127.0.0.1/32            md5
+# IPv6 local connections:
+#host    all             all             ::1/128                 md5
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+#local   replication     postgres                                peer
+#host    replication     postgres        127.0.0.1/32            md5
+#host    replication     postgres        ::1/128                 md5
+```
+More information about pg_hba.conf on: https://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+
+6) Restart postgresql:
+```
+sudo service postgresql restart
+```
+
+7) Log in to the database 'postgres':
+```
+psql -U postgres
+Input password: "postgres"
+```
+
+6) Create a user 'user' inside the psql environment. The role of 'user' is a superuser:
+```
+CREATE ROLE "user" SUPERUSER LOGIN;
+\q
+```
+

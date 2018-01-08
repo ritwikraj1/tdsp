@@ -73,3 +73,56 @@ sudo apt-get install osm2pgrouting
 ```
 
 ### Steps 1 - 9 is a one-time process that we do when we first install pgRouting, and are setting up the psql for use. The don't need to be performed everytime we are creating the database for a new city. The steps that follow, need to be performed everytime we create the database of a new city.
+
+10) While on termnal, log in to the 'postgres' database as user 'user':
+```
+psql -U user postgres
+```
+
+11) Create a database for the city. Here, we are naming the database 'buffalo_routing' for Buffalo:
+```
+CREATE DATABASE buffalo_routing;
+```
+
+12) Change the log in from database 'postgres' to database 'buffalo_routing':
+```
+\c buffalo_routing
+```
+
+13) Create necessary extensions for 'buffalo_routing' DB and then, exit:
+```
+CREATE EXTENSION postgis;
+CREATE EXTENSION pgrouting;
+\q
+```
+
+14) Go back to terminal, and if there isn't a directory, make one:
+```
+mkdir ~/Desktop/workshop
+```
+
+15) Change the directory to workshop directory:
+```
+cd ~/Desktop/workshop
+```
+
+16) Provide the name and the bounding box of the city you are working with. While inside the workshop directory, issue the following commands:
+```
+CITY="BUFFALO_US"
+BBOX="-78.9086,42.7858,-78.6388,43.0197"
+```
+
+17) Import the data in the workshop directory:
+```
+wget --progress=dot:mega -O "$CITY.osm" "http://www.overpass-api.de/api/xapi?*[bbox=${BBOX}][@meta]"
+```
+
+18) Convert the OSM data to pgRouting data. While inside the workshop directory, run the converter:
+```
+osm2pgrouting     -f BUFFALO_US.osm     -d buffalo_routing     -U user
+```
+
+And you are done! To check if the tables have been created:
+```
+psql -U user -d buffalo_routing -c "\d"
+```

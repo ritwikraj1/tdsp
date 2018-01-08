@@ -26,21 +26,9 @@ create table macro_nodes as select * from (select source as id from ways where c
 \q
 ```
 
-6) Go to terminal, and if there isn't a directory, make one:
-```
-mkdir ~/Desktop/TDSP
-```
-
-7) Download the file [preprocess_nodes.py](preprocess_nodes.py) in TDSP folder.
-
-8) On terminal, change the directory to TDSP directory:
-```
-cd ~/Desktop/TDSP
-```
-
-9) Run the [preprocess_nodes.py](preprocess_nodes.py) file.
+6) In this step, we'll perform preprocessing. Download the file [preprocess_nodes.py](preprocess_nodes.py) and run it on terminal:
 ```
 python preprocess_nodes.py
 ```
 
-This will generate two pickle files 
+This will create two tables in the 'buffalo_routing' database: 'start_macro_nodes' and 'end_macro_nodes'. These are the tables which store preprocessed data.

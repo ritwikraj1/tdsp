@@ -4,6 +4,7 @@ import sys
 import time
 from collections import defaultdict
 import pickle
+from sqlalchemy import create_engine
 
 # start_time = time.time()
 
@@ -341,10 +342,10 @@ for s in micro_N:
 conn.close()
 
 
-pickle_out = open("macro_entry_nodes.pickle","wb")
-pickle.dump(from_macro, pickle_out)
-pickle_out.close()
+df_from_macro = pd.DataFrame.from_dict(from_macro, orient='index', dtype=None)
+df_to_macro = pd.DataFrame.from_dict(to_macro, orient='index', dtype=None)
 
-pickle_out_1 = open("macro_exit_nodes.pickle","wb")
-pickle.dump(to_macro, pickle_out_1)
-pickle_out_1.close()
+engine = create_engine('postgresql://user:raj@localhost:5432/buffalo_routing')
+
+df_from_macro.to_sql('start_macro_nodes', engine, if_exists = 'replace')
+df_to_macro.to_sql('end_macro_nodes', engine, if_exists = 'replace')

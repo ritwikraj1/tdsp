@@ -26,3 +26,11 @@ create table macro_nodes as select * from (select source as id from ways where c
 \q
 ```
 
+6) Go to terminal, and if there isn't a directory, make one:
+```
+mkdir ~/Desktop/TDSP
+```
+
+7) Download the file [preprocess_nodes.py](preprocess_nodes.py) in TDSP folder.
+
+8) 

@@ -19,3 +19,10 @@ create table graph AS select gid as edge_id, class_id, source, target, cost_s as
 insert into graph select gid, class_id, target, source, reverse_cost_s, y2, x2, y1, x1 from ways where one_way < 0;
 insert into graph select gid, class_id, target, source, reverse_cost_s, y2, x2, y1, x1 from ways where one_way in (0,2);
 ```
+
+5) Create a table 'macro_nodes' in the database and then, exit:
+```
+create table macro_nodes as select * from (select source as id from ways where class_id in (101,103,102,104,105,106,107,108,124,109,125) union select target as id from ways where class_id in (101,103,102,104,105,106,107,108,124,109,125)) x;
+\q
+```
+

@@ -57,9 +57,19 @@ psql -U postgres
 Input password: "postgres"
 ```
 
-6) Create a user 'user' inside the psql environment. The role of 'user' is a superuser:
+8) Create a user 'user' inside the psql environment. The role of 'user' is a superuser:
 ```
 CREATE ROLE "user" SUPERUSER LOGIN;
 \q
 ```
 
+At this point, a role named "user" is created, but there is no Database named "user". So, when we write "psql -U user", it tries to connect to DB "user" (which doesn't exist) through role "user". Instead of doing this, write "psql -U user postgres". It will connect to DB "postgres" through role "user".
+
+9) Install the osm2pgrouting tool. While on terminal:
+```
+sudo apt-add-repository -y ppa:georepublic/pgrouting
+sudo apt-get update
+sudo apt-get install osm2pgrouting
+```
+
+### Steps 1 - 9 is a one-time process that we do when we first install pgRouting, and are setting up the psql for use. The don't need to be performed everytime we are creating the database for a new city. The steps that follow, need to be performed everytime we create the database of a new city.

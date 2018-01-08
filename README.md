@@ -33,4 +33,14 @@ mkdir ~/Desktop/TDSP
 
 7) Download the file [preprocess_nodes.py](preprocess_nodes.py) in TDSP folder.
 
-8) 
+8) On terminal, change the directory to TDSP directory:
+```
+cd ~/Desktop/TDSP
+```
+
+9) Run the [preprocess_nodes.py](preprocess_nodes.py) file.
+```
+python preprocess_nodes.py
+```
+
+This will generate two pickle files 

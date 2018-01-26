@@ -39,11 +39,11 @@ python tdsp_matrix.py
 ```
 
 8) Once you've run this file, it will ask for 3 inputs: i. list of source nodes, ii. list of target nodes, and iii. start time. Input these values, as given in example below:
-```
-sources = [12, 524, 1351, 63, 435, 345, 366, 757, 673, 2]
-targets = [13, 525, 1352, 64, 436, 346, 367, 758, 674, 1]
-start hour = 36300
-```
+    ```
+    sources = [12, 524, 1351, 63, 435, 345, 366, 757, 673, 2]
+    targets = [13, 525, 1352, 64, 436, 346, 367, 758, 674, 1]
+    start hour = 36300
+    ```
 
 9) You are done! It will generate a dictionary of arrival times at the destination nodes. Once you enter the values given in the example in step 8, it will generate the following result:
 ```
